@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+import json
 import os
-from jinja2 import Template
-from itertools import groupby
+from operator import itemgetter
 
 class NatalieScraper:
     def __init__(self):
@@ -31,23 +31,21 @@ class NatalieScraper:
                     image_url = img_tag['data-src'].split('?')[0] if img_tag and 'data-src' in img_tag.attrs else None
                     
                     date_text = card.select_one('.NA_card_date').text.strip()
-                    # 转换日期格式为 "7月11日" 形式
-                    date_obj = datetime.strptime(date_text, '%m月%d日')
-                    formatted_date = f"{date_obj.month}月{date_obj.day}日"
+                    date_obj = datetime.strptime(date_text, '%m月%d日').date()
                     
                     news_items.append({
                         'title': title,
                         'link': link,
                         'image_url': image_url,
-                        'date': formatted_date,
-                        'date_obj': date_obj  # 用于排序
+                        'date': date_obj.isoformat(),
+                        'timestamp': datetime.combine(date_obj, datetime.min.time()).timestamp()
                     })
                 except Exception as e:
                     print(f"Error parsing card: {e}")
                     continue
             
-            # 按日期排序 (最新的在前面)
-            news_items.sort(key=lambda x: x['date_obj'], reverse=True)
+            # 按时间降序排序
+            news_items.sort(key=itemgetter('timestamp'), reverse=True)
             
             print(f"Successfully scraped {len(news_items)} news items")
             return news_items
@@ -56,52 +54,39 @@ class NatalieScraper:
             print(f"Error scraping news: {e}")
             return []
 
-    def generate_html(self, news_items):
-        try:
-            print("Generating HTML page...")
-            
-            # 准备自定义的 groupby 过滤器
-            def group_by_date(items):
-                grouped = {}
-                for item in items:
-                    if item['date'] not in grouped:
-                        grouped[item['date']] = []
-                    grouped[item['date']].append(item)
-                return sorted(grouped.items(), key=lambda x: x[1][0]['date_obj'], reverse=True)
-            
-            with open('index_template.html', 'r', encoding='utf-8') as f:
-                template = Template(f.read())
-            
-            # 注册 groupby 过滤器
-            template.globals['groupby'] = group_by_date
-            
-            html_content = template.render(
-                news_items=news_items,
-                last_updated=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                current_year=datetime.now().year
-            )
-            
-            os.makedirs('output', exist_ok=True)
-            with open('output/index.html', 'w', encoding='utf-8') as f:
-                f.write(html_content)
-            
-            # 复制静态文件
-            os.makedirs('output/static', exist_ok=True)
-            if os.path.exists('static/style.css'):
-                with open('static/style.css', 'r', encoding='utf-8') as src, \
-                     open('output/static/style.css', 'w', encoding='utf-8') as dst:
-                    dst.write(src.read())
-            
-            if os.path.exists('static/script.js'):
-                with open('static/script.js', 'r', encoding='utf-8') as src, \
-                     open('output/static/script.js', 'w', encoding='utf-8') as dst:
-                    dst.write(src.read())
-            
-            print("HTML generated successfully")
-            return True
-        except Exception as e:
-            print(f"Error generating HTML: {e}")
-            return False
+    def save_data(self, news_items):
+        os.makedirs('output/data', exist_ok=True)
+        data = {
+            'last_updated': datetime.now().isoformat(),
+            'news': news_items
+        }
+        
+        with open('output/data/news.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        # 复制静态文件
+        self.copy_static_files()
+
+    def copy_static_files(self):
+        os.makedirs('output/static', exist_ok=True)
+        
+        # 复制CSS
+        if os.path.exists('static/style.css'):
+            with open('static/style.css', 'r', encoding='utf-8') as src, \
+                 open('output/static/style.css', 'w', encoding='utf-8') as dst:
+                dst.write(src.read())
+        
+        # 复制JS
+        if os.path.exists('static/script.js'):
+            with open('static/script.js', 'r', encoding='utf-8') as src, \
+                 open('output/static/script.js', 'w', encoding='utf-8') as dst:
+                dst.write(src.read())
+        
+        # 复制HTML模板
+        if os.path.exists('templates/index.html'):
+            with open('templates/index.html', 'r', encoding='utf-8') as src, \
+                 open('output/index.html', 'w', encoding='utf-8') as dst:
+                dst.write(src.read())
 
 def main():
     print("=== Natalie Comic News Scraper ===")
@@ -109,8 +94,7 @@ def main():
     
     news_items = scraper.scrape_news()
     if news_items:
-        if not scraper.generate_html(news_items):
-            exit(1)
+        scraper.save_data(news_items)
     else:
         print("No news items found")
         exit(1)
