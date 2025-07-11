@@ -7,36 +7,37 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <header>
-        <h1>コミックナタリー - ビジュアル解禁記事</h1>
-        <div class="update-time">最終更新: {{ last_updated }}</div>
-    </header>
-    
-    <main>
-        <div class="news-container">
-            {% for item in news_items %}
-            <article class="news-item">
-                {% if item.image_url %}
-                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="news-image" loading="lazy">
-                {% endif %}
-                <div class="news-content">
-                    <h2 class="news-title">
-                        <a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a>
-                    </h2>
-                    <p class="news-summary">{{ item.summary }}</p>
-                    <div class="news-meta">
-                        <span class="news-date">{{ item.date }}</span>
-                        <a href="{{ item.link }}" target="_blank" rel="noopener">続きを読む</a>
+    <div class="main-content">
+        <header class="header">
+            <h1>コミックナタリー - ビジュアル解禁記事</h1>
+            <div class="update-time">最終更新: {{ last_updated }}</div>
+        </header>
+        
+        {% for date, items in news_items|groupby('date') %}
+        <section class="date-group" id="date-{{ loop.index }}">
+            <div class="date-header">
+                <div class="date-month">{{ date.split('月')[0] }}</div>
+                <div class="date-day">{{ date.split('月')[1] }}</div>
+            </div>
+            
+            <div class="news-grid">
+                {% for item in items %}
+                <article class="news-item">
+                    {% if item.image_url %}
+                    <img src="{{ item.image_url }}" alt="{{ item.title }}" class="news-image" loading="lazy">
+                    {% endif %}
+                    <div class="news-content">
+                        <h2 class="news-title">
+                            <a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a>
+                        </h2>
                     </div>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
-    </main>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
     
-    <footer>
-        <p>&copy; {{ current_year }} コミックナタリー ビジュアル解禁記事アーカイブ</p>
-        <p>このサイトは非公式で、natalie.muからデータを取得して表示しています</p>
-    </footer>
+    <script src="../static/script.js"></script>
 </body>
 </html>
