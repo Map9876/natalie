@@ -1,0 +1,32 @@
+name: Update Comic News
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 每小时执行一次
+  workflow_dispatch:     # 允许手动触发
+
+jobs:
+  docker-scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Build Docker image
+      run: docker build -t natalie-scraper .
+      
+    - name: Run scraper container
+      run: |
+        mkdir -p output
+        docker run --rm \
+          -v $(pwd)/output:/app/output \
+          natalie-scraper
+        
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add output/
+        git commit -m "Auto-update news content [skip ci]" || echo "No changes to commit"
+        git push
