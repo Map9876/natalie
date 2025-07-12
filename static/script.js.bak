@@ -1,180 +1,190 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // 分页控制
-  const itemsPerPage = 12;
-  let currentPage = 1;
-  const dateGroups = document.querySelectorAll('.date-group');
-  let visibleGroups = [];
-  
-  // 初始化时间轴
-  initTimeline();
-  
-  // 初始化分页
-  initPagination();
-  
-  // 回到顶部按钮
-  const backToTopBtn = document.createElement('div');
-  backToTopBtn.className = 'back-to-top';
-  backToTopBtn.innerHTML = '↑';
-  backToTopBtn.addEventListener('click', scrollToTop);
-  document.body.appendChild(backToTopBtn);
-  
-  window.addEventListener('scroll', function() {
-    backToTopBtn.classList.toggle('visible', window.scrollY > 300);
-  });
-  
-  function initTimeline() {
-    const timeline = document.createElement('div');
-    timeline.className = 'timeline';
+  // 配置
+  const config = {
+    itemsPerLoad: 30,
+    currentPage: 1,
+    allNewsItems: [],
+    filteredItems: []
+  };
+
+  // DOM元素
+  const elements = {
+    container: document.querySelector('.news-container'),
+    loadMoreBtn: document.querySelector('.load-more button'),
+    timelineSidebar: document.querySelector('.timeline-sidebar'),
+    mobileToggle: document.querySelector('.mobile-timeline-toggle'),
+    mobileTimeline: document.querySelector('.mobile-timeline'),
+    dateFilter: document.querySelector('.date-filter')
+  };
+
+  // 初始化
+  init();
+
+  function init() {
+    loadNewsData();
+    setupEventListeners();
+  }
+
+  function loadNewsData() {
+    fetch('data/news.json')
+      .then(response => response.json())
+      .then(data => {
+        config.allNewsItems = data.news;
+        config.filteredItems = [...config.allNewsItems];
+        renderNewsItems();
+        createTimeline();
+        createDateFilter();
+      })
+      .catch(error => console.error('Error loading news data:', error));
+  }
+
+  function renderNewsItems() {
+    const startIdx = (config.currentPage - 1) * config.itemsPerLoad;
+    const endIdx = startIdx + config.itemsPerLoad;
+    const itemsToShow = config.filteredItems.slice(0, endIdx);
     
-    const dates = Array.from(document.querySelectorAll('.date-group')).map(group => {
-      const month = group.querySelector('.date-month').textContent;
-      const day = group.querySelector('.date-day').textContent;
-      return { month, day, element: group };
-    });
+    elements.container.innerHTML = itemsToShow.map(item => `
+      <div class="news-item" data-date="${item.date}">
+        <a href="${item.link}" target="_blank" rel="noopener">
+          <img src="${item.image_url}" alt="${item.title}" class="news-image" loading="lazy">
+          <div class="news-content">
+            <h3 class="news-title">${item.title}</h3>
+            <div class="news-date">${formatDate(item.date)}</div>
+          </div>
+        </a>
+      </div>
+    `).join('');
     
-    // 去重并创建时间轴项目
-    const uniqueDates = [];
-    const seenDates = new Set();
+    // 显示/隐藏加载更多按钮
+    elements.loadMoreBtn.style.display = 
+      endIdx < config.filteredItems.length ? 'block' : 'none';
+  }
+
+  function createTimeline() {
+    // 获取所有唯一日期
+    const uniqueDates = [...new Set(config.allNewsItems.map(item => item.date))]
+      .sort((a, b) => new Date(b) - new Date(a));
     
-    dates.forEach(date => {
-      const dateKey = `${date.month}-${date.day}`;
-      if (!seenDates.has(dateKey)) {
-        seenDates.add(dateKey);
-        uniqueDates.push(date);
-      }
-    });
-    
-    uniqueDates.forEach((date, index) => {
-      const timelineItem = document.createElement('div');
-      timelineItem.className = 'timeline-item';
-      timelineItem.innerHTML = `
-        <div class="timeline-date">
-          <div class="timeline-month">${date.month}</div>
-          <div class="timeline-day">${date.day}</div>
+    // 创建桌面版时间轴
+    elements.timelineSidebar.innerHTML = uniqueDates.map(date => {
+      const d = new Date(date);
+      return `
+        <div class="timeline-item" data-date="${date}">
+          <div class="timeline-month">${d.getMonth() + 1}</div>
+          <div class="timeline-day">${d.getDate()}</div>
         </div>
-        <div class="timeline-dot"></div>
-        ${index < uniqueDates.length - 1 ? '<div class="timeline-line"></div>' : ''}
       `;
-      
-      timelineItem.addEventListener('click', () => {
-        date.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      
-      timeline.appendChild(timelineItem);
-    });
+    }).join('');
     
-    document.body.insertBefore(timeline, document.querySelector('.main-content'));
+    // 创建移动版时间轴
+    elements.mobileTimeline.innerHTML = `
+      <div class="mobile-timeline-close">×</div>
+      <h3>日期导航</h3>
+      ${uniqueDates.map(date => {
+        const d = new Date(date);
+        return `
+          <div class="timeline-item" data-date="${date}">
+            <div class="timeline-month">${d.getMonth() + 1}月</div>
+            <div class="timeline-day">${d.getDate()}日</div>
+          </div>
+        `;
+      }).join('')}
+    `;
     
-    // 监听滚动，高亮当前日期
-    window.addEventListener('scroll', function() {
-      const scrollPosition = window.scrollY + 100;
-      
-      dateGroups.forEach(group => {
-        const rect = group.getBoundingClientRect();
-        const groupTop = rect.top + window.scrollY;
-        const groupBottom = groupTop + rect.height;
+    // 设置时间轴点击事件
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const date = this.getAttribute('data-date');
+        filterByDate(date);
         
-        if (scrollPosition >= groupTop && scrollPosition < groupBottom) {
-          const month = group.querySelector('.date-month').textContent;
-          const day = group.querySelector('.date-day').textContent;
-          
-          // 高亮对应的时间轴项目
-          const timelineItems = document.querySelectorAll('.timeline-item');
-          timelineItems.forEach(item => {
-            const itemMonth = item.querySelector('.timeline-month').textContent;
-            const itemDay = item.querySelector('.timeline-day').textContent;
-            
-            if (itemMonth === month && itemDay === day) {
-              item.querySelector('.timeline-dot').style.transform = 'translateX(-50%) scale(1.5)';
-              item.querySelector('.timeline-month').style.color = '#000';
-            } else {
-              item.querySelector('.timeline-dot').style.transform = 'translateX(-50%)';
-              item.querySelector('.timeline-month').style.color = '';
-            }
-          });
-        }
+        // 移动端关闭菜单
+        elements.mobileTimeline.classList.remove('active');
       });
     });
   }
-  
-  function initPagination() {
-    // 分组日期内容
-    const allGroups = Array.from(document.querySelectorAll('.date-group'));
-    const paginationContainer = document.createElement('div');
-    paginationContainer.className = 'pagination';
-    document.querySelector('.main-content').appendChild(paginationContainer);
+
+  function createDateFilter() {
+    // 获取最近7天日期
+    const recentDates = [...new Set(config.allNewsItems.map(item => item.date))]
+      .sort((a, b) => new Date(b) - new Date(a))
+      .slice(0, 7);
     
-    updateVisibleGroups();
-    renderPagination();
+    elements.dateFilter.innerHTML = `
+      <button data-date="all" class="active">全部</button>
+      ${recentDates.map(date => {
+        const d = new Date(date);
+        return `<button data-date="${date}">${d.getMonth() + 1}/${d.getDate()}</button>`;
+      }).join('')}
+    `;
     
-    function updateVisibleGroups() {
-      const startIdx = (currentPage - 1) * itemsPerPage;
-      const endIdx = startIdx + itemsPerPage;
-      visibleGroups = allGroups.slice(startIdx, endIdx);
-      
-      // 隐藏所有组，然后显示可见组
-      allGroups.forEach(group => group.style.display = 'none');
-      visibleGroups.forEach(group => group.style.display = 'block');
-    }
-    
-    function renderPagination() {
-      const totalPages = Math.ceil(allGroups.length / itemsPerPage);
-      paginationContainer.innerHTML = '';
-      
-      if (totalPages <= 1) return;
-      
-      // 上一页按钮
-      if (currentPage > 1) {
-        const prevBtn = document.createElement('button');
-        prevBtn.textContent = '← 上一页';
-        prevBtn.addEventListener('click', () => {
-          currentPage--;
-          updateVisibleGroups();
-          renderPagination();
-          scrollToTop();
-        });
-        paginationContainer.appendChild(prevBtn);
-      }
-      
-      // 页码按钮
-      const maxVisiblePages = 5;
-      let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-      
-      if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-      }
-      
-      for (let i = startPage; i <= endPage; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.textContent = i;
-        if (i === currentPage) {
-          pageBtn.classList.add('active');
+    // 设置筛选按钮事件
+    elements.dateFilter.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        elements.dateFilter.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const date = this.getAttribute('data-date');
+        if (date === 'all') {
+          config.filteredItems = [...config.allNewsItems];
+        } else {
+          filterByDate(date);
         }
-        pageBtn.addEventListener('click', () => {
-          currentPage = i;
-          updateVisibleGroups();
-          renderPagination();
-          scrollToTop();
-        });
-        paginationContainer.appendChild(pageBtn);
-      }
-      
-      // 下一页按钮
-      if (currentPage < totalPages) {
-        const nextBtn = document.createElement('button');
-        nextBtn.textContent = '下一页 →';
-        nextBtn.addEventListener('click', () => {
-          currentPage++;
-          updateVisibleGroups();
-          renderPagination();
-          scrollToTop();
-        });
-        paginationContainer.appendChild(nextBtn);
-      }
-    }
+        
+        config.currentPage = 1;
+        renderNewsItems();
+        scrollToTop();
+      });
+    });
   }
-  
+
+  function filterByDate(date) {
+    config.filteredItems = config.allNewsItems.filter(item => item.date === date);
+    config.currentPage = 1;
+    renderNewsItems();
+    scrollToTop();
+  }
+
+  function formatDate(isoDate) {
+    const d = new Date(isoDate);
+    return `${d.getMonth() + 1}月${d.getDate()}日`;
+  }
+
+  function setupEventListeners() {
+    // 加载更多
+    elements.loadMoreBtn.addEventListener('click', function() {
+      config.currentPage++;
+      renderNewsItems();
+    });
+    
+    // 移动端菜单切换
+    elements.mobileToggle.addEventListener('click', function() {
+      elements.mobileTimeline.classList.add('active');
+    });
+    
+    elements.mobileTimeline.querySelector('.mobile-timeline-close').addEventListener('click', function() {
+      elements.mobileTimeline.classList.remove('active');
+    });
+    
+    // 滚动时高亮时间轴
+    window.addEventListener('scroll', function() {
+      const newsItems = document.querySelectorAll('.news-item');
+      let currentDate = '';
+      
+      newsItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top <= 100) {  // 距离顶部100px以内
+          currentDate = item.getAttribute('data-date');
+        }
+      });
+      
+      if (currentDate) {
+        document.querySelectorAll('.timeline-item').forEach(item => {
+          item.classList.toggle('active', item.getAttribute('data-date') === currentDate);
+        });
+      }
+    });
+  }
+
   function scrollToTop() {
     window.scrollTo({
       top: 0,

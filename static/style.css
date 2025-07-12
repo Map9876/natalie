@@ -4,6 +4,7 @@
   --card-bg: #ffffff;
   --text-color: #333333;
   --border-color: #e0e0e0;
+  --timeline-width: 70px;
 }
 
 * {
@@ -19,38 +20,54 @@ body {
   line-height: 1.4;
 }
 
-/* 紧凑型网格布局 */
+/* 紧凑型网格布局 - 针对横版图片优化 */
 .news-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 8px;
-  padding: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  padding: 10px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .news-item {
   background: var(--card-bg);
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.news-image-container {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
 }
 
 .news-image {
   width: 100%;
-  height: 120px;
+  height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease;
+}
+
+.news-item:hover .news-image {
+  transform: scale(1.05);
 }
 
 .news-content {
   padding: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-title {
@@ -61,7 +78,9 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.4;
   height: 36px;
+  font-weight: 500;
 }
 
 .news-title a {
@@ -72,43 +91,75 @@ body {
 .news-date {
   font-size: 11px;
   color: #666;
-  margin-top: 4px;
+  margin-top: auto;
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
 }
 
-/* 时间轴侧边栏 */
+.news-date::before {
+  content: "📅";
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+/* 时间轴侧边栏 - 美化滚动条 */
 .timeline-sidebar {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 60px;
+  width: var(--timeline-width);
   background: white;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   z-index: 100;
   overflow-y: auto;
-  padding: 10px 0;
+  padding: 15px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #f1f1f1;
+}
+
+.timeline-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.timeline-sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.timeline-sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 2px;
 }
 
 .timeline-item {
   text-align: center;
-  padding: 10px 5px;
+  padding: 12px 5px;
   cursor: pointer;
   border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.timeline-item:hover {
+  background: rgba(230, 0, 18, 0.05);
 }
 
 .timeline-item.active {
   border-left: 3px solid var(--primary-color);
-  background: rgba(230, 0, 18, 0.05);
+  background: rgba(230, 0, 18, 0.08);
 }
 
 .timeline-month {
   font-size: 16px;
   font-weight: bold;
   color: var(--primary-color);
+  margin-bottom: 2px;
 }
 
 .timeline-day {
   font-size: 12px;
+  color: #555;
+  font-weight: 500;
 }
 
 /* 移动端时间轴菜单 */
@@ -126,6 +177,7 @@ body {
   align-items: center;
   z-index: 101;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  font-size: 20px;
 }
 
 .mobile-timeline {
@@ -148,27 +200,35 @@ body {
 
 .mobile-timeline-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   font-size: 24px;
   cursor: pointer;
+  color: #666;
+}
+
+.mobile-timeline h3 {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  color: var(--primary-color);
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .news-container {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 6px;
-    padding: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    padding: 8px;
   }
   
-  .news-image {
-    height: 100px;
+  .news-image-container {
+    height: 90px;
   }
   
   .news-title {
     font-size: 12px;
-    height: 32px;
+    height: 34px;
   }
   
   .timeline-sidebar {
@@ -186,7 +246,7 @@ body {
 
 @media (min-width: 769px) {
   body {
-    padding-left: 60px;
+    padding-left: var(--timeline-width);
   }
   
   .mobile-timeline {
@@ -205,9 +265,17 @@ body {
   background: var(--primary-color);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 10px 25px;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.load-more button:hover {
+  background: #c5000f;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 /* 顶部日期筛选 */
@@ -216,23 +284,38 @@ body {
   top: 0;
   background: white;
   z-index: 99;
-  padding: 10px;
+  padding: 12px 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.date-filter::-webkit-scrollbar {
+  display: none;
 }
 
 .date-filter button {
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: 1px solid var(--border-color);
   background: white;
-  border-radius: 4px;
+  border-radius: 15px;
   cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.date-filter button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .date-filter button.active {
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
+  font-weight: 500;
 }

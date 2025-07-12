@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
         renderNewsItems();
         createTimeline();
         createDateFilter();
+        
+        // 确保样式加载完成后显示内容
+        document.body.style.visibility = 'visible';
       })
       .catch(error => console.error('Error loading news data:', error));
   }
@@ -46,7 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.container.innerHTML = itemsToShow.map(item => `
       <div class="news-item" data-date="${item.date}">
         <a href="${item.link}" target="_blank" rel="noopener">
-          <img src="${item.image_url}" alt="${item.title}" class="news-image" loading="lazy">
+          <div class="news-image-container">
+            <img src="${item.image_url}" alt="${item.title}" class="news-image" loading="lazy">
+          </div>
           <div class="news-content">
             <h3 class="news-title">${item.title}</h3>
             <div class="news-date">${formatDate(item.date)}</div>
@@ -58,10 +63,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // 显示/隐藏加载更多按钮
     elements.loadMoreBtn.style.display = 
       endIdx < config.filteredItems.length ? 'block' : 'none';
+      
+    // 初始化懒加载
+    initLazyLoad();
+  }
+
+  function initLazyLoad() {
+    const lazyImages = document.querySelectorAll('.news-image[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.getAttribute('src');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    }
   }
 
   function createTimeline() {
-    // 获取所有唯一日期
+    // 获取所有唯一日期并按时间倒序
     const uniqueDates = [...new Set(config.allNewsItems.map(item => item.date))]
       .sort((a, b) => new Date(b) - new Date(a));
     
@@ -79,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 创建移动版时间轴
     elements.mobileTimeline.innerHTML = `
       <div class="mobile-timeline-close">×</div>
-      <h3>日期导航</h3>
+      <h3>日付で絞り込み</h3>
       ${uniqueDates.map(date => {
         const d = new Date(date);
         return `
@@ -96,8 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
       item.addEventListener('click', function() {
         const date = this.getAttribute('data-date');
         filterByDate(date);
-        
-        // 移动端关闭菜单
         elements.mobileTimeline.classList.remove('active');
       });
     });
@@ -110,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .slice(0, 7);
     
     elements.dateFilter.innerHTML = `
-      <button data-date="all" class="active">全部</button>
+      <button data-date="all" class="active">すべて</button>
       ${recentDates.map(date => {
         const d = new Date(date);
         return `<button data-date="${date}">${d.getMonth() + 1}/${d.getDate()}</button>`;
@@ -146,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function formatDate(isoDate) {
     const d = new Date(isoDate);
-    return `${d.getMonth() + 1}月${d.getDate()}日`;
+    return `${d.getMonth() + 1}/${d.getDate()}`;
   }
 
   function setupEventListeners() {
@@ -166,13 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // 滚动时高亮时间轴
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', throttle(function() {
       const newsItems = document.querySelectorAll('.news-item');
       let currentDate = '';
       
       newsItems.forEach(item => {
         const rect = item.getBoundingClientRect();
-        if (rect.top <= 100) {  // 距离顶部100px以内
+        if (rect.top <= 120) {  // 距离顶部120px以内
           currentDate = item.getAttribute('data-date');
         }
       });
@@ -182,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
           item.classList.toggle('active', item.getAttribute('data-date') === currentDate);
         });
       }
-    });
+    }, 100));
   }
 
   function scrollToTop() {
@@ -191,4 +215,29 @@ document.addEventListener('DOMContentLoaded', function() {
       behavior: 'smooth'
     });
   }
+  
+  // 节流函数
+  function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function() {
+      const context = this;
+      const args = arguments;
+      if (!lastRan) {
+        func.apply(context, args);
+        lastRan = Date.now();
+      } else {
+        clearTimeout(lastFunc);
+        lastFunc = setTimeout(function() {
+          if ((Date.now() - lastRan) >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    }
+  }
 });
+
+// 初始隐藏内容，直到样式加载完成
+document.body.style.visibility = 'hidden';
