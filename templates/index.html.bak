@@ -5,30 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>コミックナタリー - 高密度ビジュアル一覧</title>
     <link rel="stylesheet" href="static/style.css">
-    <style>
-        body.preload {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-    </style>
 </head>
-<body class="preload">
-    <div class="loading-overlay">
-        <div class="loading-spinner">読み込み中...</div>
-    </div>
-
+<body>
     <!-- 桌面版时间轴 -->
     <div class="timeline-sidebar"></div>
     
@@ -45,6 +23,6 @@
         <button>さらに読み込む</button>
     </div>
     
-    <script src="static/script.js" defer></script>
+    <script src="static/script.js"></script>
 </body>
 </html>
