@@ -1,215 +1,47 @@
 {
-  "last_updated": "2025-12-31T14:21:30.941307",
+  "last_updated": "2026-01-01T15:23:49.703408",
   "news": [
     {
-      "title": "ミュージカル「SPY×FAMILY 2」サブタイトル決定、キャストや公演スケジュールも発表",
-      "link": "https://natalie.mu/comic/news/654532",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1230/SPYFAMILY_musical.jpg",
-      "date": "1900-12-30",
-      "timestamp": -2177625600.0
+      "title": "「時光代理人 -LINK CLICK- 英都篇」PVとビジュアル公開　沢城みゆきら出演",
+      "link": "https://natalie.mu/comic/news/654679",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0101/linkclick_mainvisual.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     },
     {
-      "title": "アニメ「雨夜の月」ティザービジュアル＆スタッフ公開「えがたえ」コラボイラストも",
-      "link": "https://natalie.mu/comic/news/654479",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1229/amayonotsuki_teaser.jpg",
-      "date": "1900-12-30",
-      "timestamp": -2177625600.0
+      "title": "アニメ「五等分の花嫁」イベントビジュアルにアイドル衣装を身にまとう五つ子の姿",
+      "link": "https://natalie.mu/comic/news/654698",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0101/gotoubun_ebent_key.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     },
     {
-      "title": "「ワンパンマン」第3期第2クール、2027年放送決定　サイタマVSガロウを予感させるPV",
-      "link": "https://natalie.mu/comic/news/654393",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1228/OPM3_teaservisual.jpg",
-      "date": "1900-12-29",
-      "timestamp": -2177712000.0
+      "title": "「ヤマトよ永遠に」第五章、結城信輝描き下ろしビジュアル　決戦収めた本予告も",
+      "link": "https://natalie.mu/comic/news/654665",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0101/yamato_05_poster.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     },
     {
-      "title": "「DARK MOON -黒の月： 月の祭壇-」に木村太飛、千葉翔也ら　本PV＆新ビジュアルも",
-      "link": "https://natalie.mu/comic/news/654399",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1228/DM_kv2.jpg",
-      "date": "1900-12-28",
-      "timestamp": -2177798400.0
+      "title": "「ふつつかな悪女ではございますが」正月のビジュアル、顔に落書きされた慧月が驚愕",
+      "link": "https://natalie.mu/comic/news/654305",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1227/futsutsuka_anime_janvisual.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     },
     {
-      "title": "「【推しの子】」第3期の第2弾PV、“中堅編”ビジュアル公開　OP主題歌はちゃんみな",
-      "link": "https://natalie.mu/comic/news/654351",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1228/oshinoko3_visual.jpg",
-      "date": "1900-12-28",
-      "timestamp": -2177798400.0
+      "title": "岩明均「ヒストリエ」TVアニメ化　アニメーション制作はライデンフィルム",
+      "link": "https://natalie.mu/comic/news/654660",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1231/historie_teaser_catch.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     },
     {
-      "title": "アニメ「キングダム」第6シリーズ続編制作決定！特報＆楊端和ら収めたビジュアル公開",
-      "link": "https://natalie.mu/comic/news/654292",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1228/kingdomseason6.jpg",
-      "date": "1900-12-28",
-      "timestamp": -2177798400.0
-    },
-    {
-      "title": "劇場版「魔法科高校の劣等生」来年5月上映、特報第1弾＆キービジュアル公開",
-      "link": "https://natalie.mu/comic/news/654253",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1227/mahoukakoukou_movie_kv1.jpg",
-      "date": "1900-12-27",
-      "timestamp": -2177884800.0
-    },
-    {
-      "title": "「天幕のジャードゥーガル」総監督は山田尚子、PVを公開　放送は来年7月から",
-      "link": "https://natalie.mu/comic/news/654250",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1227/jaadugar_anime_teaser.jpg",
-      "date": "1900-12-27",
-      "timestamp": -2177884800.0
-    },
-    {
-      "title": "アニメ「桃源暗鬼」続編「日光・華厳の滝編」制作発表　PVの最後に等々力颯の声",
-      "link": "https://natalie.mu/comic/news/654189",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1226/tougenanki2_teaser.jpg",
-      "date": "1900-12-27",
-      "timestamp": -2177884800.0
-    },
-    {
-      "title": "「ある姫」クライマックスビジュアル、「お姫さま手帳」とのコラボも",
-      "link": "https://natalie.mu/comic/news/654191",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1226/aruhime_climax_visual_logo.jpg",
-      "date": "1900-12-26",
-      "timestamp": -2177971200.0
-    },
-    {
-      "title": "「ガルパン もっとらぶらぶ作戦です！」とカラオケBanBanのコラボが本日から",
-      "link": "https://natalie.mu/comic/news/654182",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1226/garupan_banban01.jpg",
-      "date": "1900-12-26",
-      "timestamp": -2177971200.0
-    },
-    {
-      "title": "「ガルパン もっとらぶらぶ作戦です！」第2幕のキービジュアル＆PV公開",
-      "link": "https://natalie.mu/comic/news/654062",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1226/garupan2_poster.jpg",
-      "date": "1900-12-26",
-      "timestamp": -2177971200.0
-    },
-    {
-      "title": "アニメ「メイドさんは食べるだけ」は来年4月放送開始、“冬休み”ビジュアルも公開",
-      "link": "https://natalie.mu/comic/news/653987",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1225/meidsan_fuyuyasumi.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "10周年おめでとー！「KING OF PRISM」ファンと劇場への感謝込めた10周年記念ビジュアル",
-      "link": "https://natalie.mu/comic/news/653964",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1225/KOP_10th_main.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "ミュージカル「スキロー」清水美依紗、吉高志音らがキャラに扮したビジュアル公開",
-      "link": "https://natalie.mu/comic/news/653908",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1225/skipandloafer_musical_shugo.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "「板垣巴留展」200点以上の原画や立体展示が登場、レゴシのバッグなどグッズも公開",
-      "link": "https://natalie.mu/comic/news/653895",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1225/itagakiparuten_visual.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "谷口崇初の長編アニメ映画「おしり前マン～復活のおしり前帝国～」来年3月公開",
-      "link": "https://natalie.mu/comic/news/653849",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/oshirimaeman_movie_main.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "「婚活バトルフィールド37」結婚情報誌風のビジュアル、リンダカラー∞・Denら出演",
-      "link": "https://natalie.mu/comic/news/653841",
-      "image_url": "https://ogre.natalie.mu/media/news/owarai/2025/1224/konkatsu1225_02.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "「ゆかりくんはギャップがずるい」ドラマ化　ゆかり役は高尾颯斗、芽衣子役は渡邉美穂",
-      "link": "https://natalie.mu/comic/news/653809",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/yukarikun_drama_comic.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "「オタクに優しいギャルはいない!?」ティザーPV公開　小村将、稲垣好、芹澤優が出演",
-      "link": "https://natalie.mu/comic/news/653797",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/ota_tv.jpg",
-      "date": "1900-12-25",
-      "timestamp": -2178057600.0
-    },
-    {
-      "title": "アニメ「クラにか」来年4月に放送、真樹と海の関係性が垣間見えるビジュアル",
-      "link": "https://natalie.mu/comic/news/653807",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/kuranika_KV.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "「ふつつかな悪女ではございますが」クリスマスの準備をする玲琳＆慧月のビジュアル",
-      "link": "https://natalie.mu/comic/news/653848",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/futsutsuka_monthly_dec.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "「ヘタミュ」アリーナライブのビジュアルにイタリアなど18キャラが勢揃い",
-      "link": "https://natalie.mu/comic/news/653821",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/hetamu_WC_KV.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "「嫌パン」新作ビジュアル、7人のヒロインたちが嫌な顔しながらパンツ見せる",
-      "link": "https://natalie.mu/comic/news/653804",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/iyapanR_KV.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "「愛してるゲームを終わらせたい」サンタ姿のみく描いたクリスマスイラスト、動画も",
-      "link": "https://natalie.mu/comic/news/653784",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/aishiterugame_christmas_01.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "「鉄血のオルフェンズ」10周年イベントのビジュアル、ドレスアップした三日月たちの姿",
-      "link": "https://natalie.mu/comic/news/653684",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1224/tekketsu10_KV.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "アニメ「てんびん」1人佇む春希を描いたビジュアル、書き下ろしのモノローグ収めたPV",
-      "link": "https://natalie.mu/comic/news/653561",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1223/tenbin-kv2.jpg",
-      "date": "1900-12-24",
-      "timestamp": -2178144000.0
-    },
-    {
-      "title": "ミュージカル「スタミュ」新作のメインビジュアル、公式Xではメイキング映像を発表",
-      "link": "https://natalie.mu/comic/news/653550",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1223/kv02_stmm.jpg",
-      "date": "1900-12-23",
-      "timestamp": -2178230400.0
-    },
-    {
-      "title": "5年経っても本気だす！アニメ「無職転生」5周年企画始動、記念ビジュアル公開",
-      "link": "https://natalie.mu/comic/news/653580",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1223/MT5th_KVs.jpg",
-      "date": "1900-12-23",
-      "timestamp": -2178230400.0
-    },
-    {
-      "title": "アニメ「パンどろぼう」来年10月よりEテレで放送　監督は京極尚彦、制作はシンエイ動画",
-      "link": "https://natalie.mu/comic/news/653581",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1223/251216_pandoro_kv_fix_rgb.jpg",
-      "date": "1900-12-23",
-      "timestamp": -2178230400.0
+      "title": "「ゴールデンカムイ」最終章キービジュアル公開　年賀画像もらえるキャンペーンも",
+      "link": "https://natalie.mu/comic/news/654634",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1231/kamuy_key.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
     }
   ]
 }
