@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-11T16:26:59.251416",
+  "last_updated": "2026-01-11T17:19:02.480086",
   "news": [
     {
       "title": "「骸骨騎士様、只今異世界へお出掛け中Ⅱ」新PV、キービジュアル公開　放送は7月開始",
@@ -184,13 +184,6 @@
       "timestamp": -2208988800.0
     },
     {
-      "title": "「ふつつかな悪女ではございますが」正月のビジュアル、顔に落書きされた慧月が驚愕",
-      "link": "https://natalie.mu/comic/news/654305",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1227/futsutsuka_anime_janvisual.jpg",
-      "date": "1900-01-01",
-      "timestamp": -2208988800.0
-    },
-    {
       "title": "岩明均「ヒストリエ」TVアニメ化　アニメーション制作はライデンフィルム",
       "link": "https://natalie.mu/comic/news/654660",
       "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1231/historie_teaser_catch.jpg",
@@ -201,6 +194,13 @@
       "title": "「ヤマトよ永遠に」第五章、結城信輝描き下ろしビジュアル　決戦収めた本予告も",
       "link": "https://natalie.mu/comic/news/654665",
       "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0101/yamato_05_poster.jpg",
+      "date": "1900-01-01",
+      "timestamp": -2208988800.0
+    },
+    {
+      "title": "「ふつつかな悪女ではございますが」正月のビジュアル、顔に落書きされた慧月が驚愕",
+      "link": "https://natalie.mu/comic/news/654305",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2025/1227/futsutsuka_anime_janvisual.jpg",
       "date": "1900-01-01",
       "timestamp": -2208988800.0
     }
