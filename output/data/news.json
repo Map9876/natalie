@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-15T02:36:10.454831",
+  "last_updated": "2026-03-15T05:06:33.852014",
   "news": [
     {
       "title": "アニメ「TRIGUN STARGAZE」完結まで残り2話、クライマックスビジュアル公開",
@@ -65,6 +65,13 @@
       "timestamp": -2202854400.0
     },
     {
+      "title": "「異世界転生騒動記」TVアニメ化、戦国武将とオタクの魂が宿る主人公役は小林裕介",
+      "link": "https://natalie.mu/comic/news/663878",
+      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0313/soudouki_anime_TV.jpg",
+      "date": "1900-03-13",
+      "timestamp": -2202854400.0
+    },
+    {
       "title": "「魔法科高校の劣等生 四葉継承編」鋭い眼光に覚悟を宿す、新発田勝成のビジュアル公開",
       "link": "https://natalie.mu/comic/news/663787",
       "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0313/yotsuba_charavis_chara0313.jpg",
@@ -82,13 +89,6 @@
       "title": "「LIAR GAME」キービジュアル公開　ゲーム参加者役に富岡泰崇、石毛翔弥、八代拓ら",
       "link": "https://natalie.mu/comic/news/663860",
       "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0313/LG_KV2_visual.jpg",
-      "date": "1900-03-13",
-      "timestamp": -2202854400.0
-    },
-    {
-      "title": "「異世界転生騒動記」TVアニメ化、戦国武将とオタクの魂が宿る主人公役は小林裕介",
-      "link": "https://natalie.mu/comic/news/663878",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0313/soudouki_anime_TV.jpg",
       "date": "1900-03-13",
       "timestamp": -2202854400.0
     },
@@ -203,13 +203,6 @@
       "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0310/umanaionna_KV.jpg",
       "date": "1900-03-11",
       "timestamp": -2203027200.0
-    },
-    {
-      "title": "「鋼の錬金術師×黄泉のツガイ展」開催　荒川弘がエド、アル、ユル、アサを描き下ろし",
-      "link": "https://natalie.mu/comic/news/663417",
-      "image_url": "https://ogre.natalie.mu/media/news/comic/2026/0310/hagarenyomiten_1.jpg",
-      "date": "1900-03-10",
-      "timestamp": -2203113600.0
     }
   ]
 }
